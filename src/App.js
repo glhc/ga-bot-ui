@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import "./App.css";
 
 import StyledNavBar from './components/NavBar/NavBar.js';
-import Login from './components/Login/Login.js';
+import StyledLogin from './components/Login/Login.js';
 import SignUp from './components/Login/Login.js';
 import Home from './components/Home/Home.js';
 
@@ -14,7 +14,7 @@ function App() {
 
       <Switch>
         <Route path='/login'>
-          <Login />
+          <StyledLogin />
         </Route>
         <Route path='/signup'>
           <SignUp />

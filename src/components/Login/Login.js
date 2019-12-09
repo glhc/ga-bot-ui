@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { BACKEND_URL } from "../../config";
+import {BACKEND_URL} from "../../config";
+import StyledLogin from './StyledLogin.js';
 
 function Login(props) {
+  
+  /*
+   * Will use the fetch API to send data away
+   * (Unless we decide the <form> element will do it natively
+   */
   function handleLogin(credentials) {
     fetch();
-  }
+  };
+  
   return (
-    <>
+    <StyledLogin>
       <p>Start Login Component</p>
       <form>
         <div className="form-group">
-          <label for="exampleInputEmail1">Email address</label>
+          <label>Email address</label>
           <input
             type="email"
             className="form-control"
@@ -22,7 +29,7 @@ function Login(props) {
           </small>
         </div>
         <div className="form-group">
-          <label for="exampleInputPassword1">Password</label>
+          <label>Password</label>
           <input
             type="password"
             className="form-control"
@@ -35,7 +42,7 @@ function Login(props) {
             className="form-check-input"
             id="exampleCheck1"
           />
-          <label className="form-check-label" for="exampleCheck1">
+          <label className="form-check-label">
             Check me out
           </label>
         </div>
@@ -44,7 +51,7 @@ function Login(props) {
         </button>
       </form>
       <p>End Login Component</p>
-    </>
+    </StyledLogin>
   );
 }
 
