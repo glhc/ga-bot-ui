@@ -14,8 +14,8 @@ function Login(props) {
   
   return (
     <StyledLogin>
-      <p>Start Login Component</p>
       <form>
+        <h3>Login</h3>
         <div className="form-group">
           <label>Email address</label>
           <input
@@ -50,7 +50,6 @@ function Login(props) {
           Submit
         </button>
       </form>
-      <p>End Login Component</p>
     </StyledLogin>
   );
 }

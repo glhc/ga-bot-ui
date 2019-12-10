@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const StyledLogin = styled.div`
   color: green;
-  background-color: 
+  margin-top: 10rem;
+  border: solid green 2px;
 `;
 
 export default StyledLogin;
