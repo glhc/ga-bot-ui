@@ -6,6 +6,7 @@ import StyledNavBar from './components/NavBar/NavBar.js';
 import StyledLogin from './components/Login/Login.js';
 import SignUp from './components/Login/Login.js';
 import Home from './components/Home/Home.js';
+import StyledChatroom from './components/Chatroom/Chatroom.js';
 
 function App() {
   return (
@@ -13,6 +14,12 @@ function App() {
       <StyledNavBar />
 
       <Switch>
+        <Route path='/chatroom'>
+          <Chatroom />
+        </Route>
+        <Route path='/profile'>
+          <StyledLogin />
+        </Route>
         <Route path='/login'>
           <StyledLogin />
         </Route>
