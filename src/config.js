@@ -1,5 +1,3 @@
-const config = {
-  "BACKEND_URL": "http://localhost:3010"
-};
+const BACKEND_URL = "http://localhost:3010"
 
-export default config;
+export {BACKEND_URL};
