@@ -15,7 +15,7 @@ function App() {
 
       <Switch>
         <Route path='/chatroom'>
-          <Chatroom />
+          <StyledChatroom />
         </Route>
         <Route path='/profile'>
           <StyledLogin />

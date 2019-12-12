@@ -1,11 +1,13 @@
-import react, { useState, useEffect } from 'react';
+import react, {useState, useEffect} from 'react';
+import StyledMessage from './StyledMessage.js';
 
 function Message(props) {
   
   return (
     <StyledMessage>
-      <div className="username">{username}</div>
-      {content}
+      <p>===BEGIN STYLEDMESSAGE===</p>
+      // <div className="username">{username}</div>
+      <p>===BEGIN STYLEDMESSAGE===</p>
     </StyledMessage>
   );
 };
