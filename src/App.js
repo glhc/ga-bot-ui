@@ -6,6 +6,7 @@ import StyledNavBar from './components/NavBar/NavBar.js';
 import StyledLogin from './components/Login/Login.js';
 import SignUp from './components/Login/Login.js';
 import Home from './components/Home/Home.js';
+import FriendList from './components/Friends/Friendlist.js';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <StyledNavBar />
 
       <Switch>
+        <Route path='/friends'>
+          <FriendList />
+        </Route>
         <Route path='/login'>
           <StyledLogin />
         </Route>
@@ -25,6 +29,6 @@ function App() {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;
