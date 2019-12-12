@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledMessage = styled`
+const StyledMessage = styled.div`
   background-color: 
 `;
 

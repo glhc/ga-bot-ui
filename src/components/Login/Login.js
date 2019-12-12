@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import {BACKEND_URL} from "../../config";
 import StyledLogin from './StyledLogin.js';
 
+/*
+ * Provides the interface for a user to login
+ * @todo what endpoint does the login form need to go to? Guessing '/login'
+ */
 function Login(props) {
   
   /*
@@ -14,7 +18,7 @@ function Login(props) {
   
   return (
     <StyledLogin>
-      <form>
+      <form action={BACKEND_URL + '/login'}>
         <h3>Login</h3>
         <div className="form-group">
           <label>Email address</label>
