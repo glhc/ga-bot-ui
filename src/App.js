@@ -7,9 +7,11 @@ import StyledLogin from './components/Login/Login.js';
 import SignUp from './components/Login/Login.js';
 import Home from './components/Home/Home.js';
 
-import FriendList from './components/Friends/Friendlist.js';
+import Followers from './components/People/Followers.js';
+import Following from './components/People/Following.js';
+import People from './components/People/People.js';
+import Profile from './components/People/Profile.js'
 import StyledChatroom from './components/Chatroom/Chatroom.js';
-
 
 function App() {
   return (
@@ -17,8 +19,17 @@ function App() {
       <StyledNavBar />
 
       <Switch>
-        <Route path='/friends'>
-          <FriendList />
+        <Route path='/profile/:id'>
+          <Profile />
+        </Route>
+        <Route path='/followers'>
+          <Followers />
+        </Route>
+        <Route path='/following'>
+          <Following />
+        </Route>
+        <Route path='/people'>
+          <People />
         </Route>
         <Route path='/chatroom'>
           <StyledChatroom />
