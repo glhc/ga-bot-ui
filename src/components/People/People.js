@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Image from 'react-bootstrap/Image'
 
 export default class People extends React.Component {
 
@@ -13,7 +14,8 @@ export default class People extends React.Component {
         this.state = {
             friends: [],
             input: '',
-            filteredFriends: []
+            filteredFriends: [],
+            selectedUser: {}
         };
     }
 
@@ -38,6 +40,13 @@ export default class People extends React.Component {
         return output;
     }
 
+    updateSelectedUser = (userid) => {
+        const update = this.state.friends[userid - 1];
+        this.setState({
+            selectedUser: update,
+        });
+    }
+
     render() {
         const {friends} = this.state;
         this.friends = friends
@@ -47,32 +56,50 @@ export default class People extends React.Component {
                 return searched.includes(true) ? item : null;
             })
             .map((item, key) =>
-                <Col xs={4} md={3}>
-                    <a href={`/profile/${item.id}`}>
+                    <span onClick={() => this.updateSelectedUser(item.id)}>
                         <Card>
-                            <Card.Img variant="top" src="https://www.placecage.com/c/300/300" />
-                            <Card.Body>
-                            <Card.Title>{item.first_name} {item.last_name}</Card.Title>
-                            <Card.Text>
-                                @{item.username}
-                            </Card.Text>
-                            </Card.Body>
+                            <Row>
+                                {/* <Card.Img variant="top" src="https://www.placecage.com/c/300/300" /> */}
+                                <Col md={4}>
+                                    <Image src="https://www.placecage.com/c/75/75" roundedCircle />
+                                </Col>
+                                <Col md={8}>
+                                    <Card.Body>
+                                    <Card.Title>{item.first_name} {item.last_name}</Card.Title>
+                                    <Card.Text>
+                                        @{item.username}
+                                    </Card.Text>
+                                    </Card.Body>
+                                </Col>
+                            </Row>
                         </Card>
-                    </a>
-                </Col>
+                    </span>
             );
 
         return(
-            <div>
-                <h1>search</h1>
-                <input value={this.state.input} type="text" onChange={this.onChangeHandler.bind(this)}/>
-                <h1>People:</h1>
-                <Container>
-                    <Row>
+            
+            <Container>
+                <Row>
+                    <input value={this.state.input} type="text" onChange={this.onChangeHandler.bind(this)}/>
+                </Row>
+                <Row>
+                    <Col md={4}>
                         {this.friends}
-                    </Row>
-                </Container>
-            </div>
+                    </Col>
+                    <Col md={8}>
+                        <h1>hi</h1>
+                        <Card>
+                            <Card.Img variant="top" src="holder.js/100px180" />
+                            <Card.Body>
+                                <Card.Title>{this.state.selectedUser.first_name} {this.state.selectedUser.last_name}</Card.Title>
+                                <Card.Text>@{this.state.selectedUser.username}</Card.Text>
+                                <Card.Text>{this.state.selectedUser.age}</Card.Text>
+                                <Card.Text>{this.state.selectedUser.email}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
 
