@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {BACKEND_URL} from "../../config";
 import StyledLogin from './StyledLogin.js';
+import axios from 'axios';
 
 /*
  * Provides the interface for a user to login
  * @todo what endpoint does the login form need to go to? Guessing '/login'
  */
-function Login(props) {
+export default function Login(props) {
   
   /* Create a state */
   const [email, setEmail] = useState('');
@@ -24,25 +25,30 @@ function Login(props) {
         "password": password
       }
     };
-    const fetchOptions = {
-      method: 'POST',
-      mode: 'cors',
-      body: JSON.stringify(credentials),
-      headers: {"Content-Type": "application/json; charset=utf-8"}
-    };
+    // const fetchOptions = {
+    //   method: 'POST',
+    //   mode: 'cors',
+    //   body: JSON.stringify(credentials),
+    //   headers: {"Content-Type": "application/json"}
+    // };
     
-    fetch(BACKEND_URL + '/user_token', fetchOptions)
-      .then(response => response.json())
-      .then(response => handleAuthResponse(response));
+    // fetch(BACKEND_URL + '/user_token', fetchOptions)
+    //   .then(response => response.json())
+    //   .then(response => handleAuthResponse(response));
+    // };
+    axios.post(BACKEND_URL + '/user_token', credentials)
+      .then(response => handleAuthResponse(response))
+      .catch(response => console.log('Error', response));
   };
 
   /*
    * If http code is 201, store JWT token in sessionStorage.
    * If http code is 404, show error
    */
-  function handleAuthResponse(data) {
-    console.log('Auth response:');
-    console.log(data);
+  function handleAuthResponse(response) {
+    console.log(response.data);
+    sessionStorage.setItem('jwt', response.data.jwt);
+    
   };
 
 /* sets the state variable when an input field changes */
@@ -83,6 +89,7 @@ function Login(props) {
             type="password"
             className="form-control"
             id="exampleInputPassword1"
+            onChange={handleChange}
           />
         </div>
         <button type="submit" className="btn btn-primary">
@@ -92,5 +99,3 @@ function Login(props) {
     </StyledLogin>
   );
 }
-
-export default Login;
