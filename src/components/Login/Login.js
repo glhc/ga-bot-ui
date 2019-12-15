@@ -12,6 +12,8 @@ export default function Login(props) {
   /* Create a state */
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  
   
   /*
    * Logs into rails using knock-gem JWT auth.
@@ -19,6 +21,7 @@ export default function Login(props) {
    * Stores userId under key "userId"
    */
   function handleLogin(event) {
+    setError = false;
     /*
      * Gets the user id by passing the current token
      */
@@ -29,6 +32,10 @@ export default function Login(props) {
       return response;
     };
 
+    function handleError(errorMessage) {
+      setError(true);
+    };
+    
     function storeUserId(data) {
       window.sessionStorage.setItem('userId', data);
     };
@@ -53,8 +60,12 @@ export default function Login(props) {
    * If http code is 404, show error
    */
   function handleAuthResponse(response) {
-    console.log(response.data);
-    sessionStorage.setItem('jwt', response.data.jwt);
+    if (response !== (201 || 201)) {
+      console.log(response);
+      sessionStorage.setItem('jwt', response.data.jwt);
+    } else {
+      throw new Error('An Error occured.');
+    };
     
   };
 
@@ -77,6 +88,11 @@ export default function Login(props) {
     <StyledLogin>
       <form onSubmit={handleLogin}>
         <h3>Login</h3>
+        {error ? 
+          <p id="error-message">An error occured. Please try again.</p>
+          :
+          null
+        }
         <div className="form-group">
           <label>Email address</label>
           <input name="something"
