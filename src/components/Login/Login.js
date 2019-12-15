@@ -14,10 +14,25 @@ export default function Login(props) {
   const [password, setPassword] = useState('');
   
   /*
-   * Will use the fetch API to send data away
-   * (Unless we decide the <form> element will do it natively
+   * Logs into rails using knock-gem JWT auth.
+   * Stores token in sessionStorage under key 'jwt'
+   * Stores userId under key "userId"
    */
   function handleLogin(event) {
+    /*
+     * Gets the user id by passing the current token
+     */
+    async function getUserId() {
+      const token = sessionStorage.getItem('jwt');
+      const customHeaders = {headers: {"Authorization": "Bearer " + token}}
+      const response = axios.get(BACKEND_URL + '/user/whatsmyid', customHeaders)
+      return response;
+    };
+
+    function storeUserId(data) {
+      window.sessionStorage.setItem('userId', data);
+    };
+    
     event.preventDefault();
     const credentials = {
       "auth": {
@@ -25,19 +40,11 @@ export default function Login(props) {
         "password": password
       }
     };
-    // const fetchOptions = {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   body: JSON.stringify(credentials),
-    //   headers: {"Content-Type": "application/json"}
-    // };
     
-    // fetch(BACKEND_URL + '/user_token', fetchOptions)
-    //   .then(response => response.json())
-    //   .then(response => handleAuthResponse(response));
-    // };
     axios.post(BACKEND_URL + '/user_token', credentials)
       .then(response => handleAuthResponse(response))
+      .then(() => getUserId())
+      .then(response => storeUserId(response.data))
       .catch(response => console.log('Error', response));
   };
 

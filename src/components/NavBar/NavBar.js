@@ -4,7 +4,7 @@ import StyledNavBar from './StyledNavBar';
 
 function NavBar(props) {
   return (
-    <StyledNavBar className="navbar">
+    <StyledNavBar className="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
       <Link to="/">Home</Link>
       <h3 className="navbar-text">GA Bot</h3>
       <Link to="/login">Login</Link>
