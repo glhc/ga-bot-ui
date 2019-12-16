@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
+import Button from 'react-bootstrap/Button'
 
 export default class People extends React.Component {
 
@@ -87,16 +88,19 @@ export default class People extends React.Component {
                         {this.friends}
                     </Col>
                     <Col md={8}>
-                        <h1>hi</h1>
-                        <Card>
-                            <Card.Img variant="top" src="holder.js/100px180" />
-                            <Card.Body>
-                                <Card.Title>{this.state.selectedUser.first_name} {this.state.selectedUser.last_name}</Card.Title>
-                                <Card.Text>@{this.state.selectedUser.username}</Card.Text>
-                                <Card.Text>{this.state.selectedUser.age}</Card.Text>
-                                <Card.Text>{this.state.selectedUser.email}</Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <a href={`/profile/${this.state.selectedUser.id}`}>
+                            <Card>
+                                <Card.Img variant="top" src="holder.js/100px180" />
+                                <Card.Body>
+                                    <Card.Title>{this.state.selectedUser.first_name} {this.state.selectedUser.last_name}</Card.Title>
+                                    <Card.Text>@{this.state.selectedUser.username}</Card.Text>
+                                    <Card.Text>{this.state.selectedUser.age}</Card.Text>
+                                    <Card.Text>{this.state.selectedUser.email}</Card.Text>
+                                    <Card.Text>Followers: {this.state.selectedUser.email}</Card.Text>
+                                    <Card.Text>Following: {this.state.selectedUser.email}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        </a>
                     </Col>
                 </Row>
             </Container>
