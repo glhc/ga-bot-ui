@@ -5,9 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
-
+import { BACKEND_URL } from "../../config";
 export default class People extends React.Component {
 
     constructor(props){
@@ -26,12 +25,23 @@ export default class People extends React.Component {
         });
     }
 
+    // componentDidMount() {
+    //     const FriendURL = 'http://localhost:3010/read_people';
+    //     Axios.get(FriendURL)      
+    //             .then(res => {const query = res.data;
+    //                 this.setState({ friends: query});
+    //     })
+    // }
+
     componentDidMount() {
-        const FriendURL = 'http://localhost:3010/read_people';
-        Axios.get(FriendURL)      
-                .then(res => {const query = res.data;
-                    this.setState({ friends: query});
+        const token = sessionStorage.getItem('jwt');
+        const customHeaders = { headers: { "Authorization": "Bearer " + token } }
+        const response = Axios
+        .get(BACKEND_URL + '/read_people', customHeaders)
+        .then(res => {const query = res.data;
+            this.setState({ friends: query});
         })
+        return response;
     }
 
     getRelatedFields = (item) => {
@@ -47,6 +57,19 @@ export default class People extends React.Component {
             selectedUser: update,
         });
     }
+
+    followUser = () => {
+        const follow_user = {
+            "query": {
+                "user_id": window.localStorage.getItem("userId"),
+                "friend_id": this.state.selectedUser.id
+            }
+        };
+        Axios.post(BACKEND_URL + '/follow', follow_user);
+        console.log('hi')
+    }
+
+    
 
     render() {
         const {friends} = this.state;
@@ -86,8 +109,8 @@ export default class People extends React.Component {
                         {this.friends}
                     </Col>
                     <Col md={8}>
-                        <a href={`/profile/${this.state.selectedUser.id}`}>
-                            <Card>
+                        <Card>
+                            <a href={`/profile/${this.state.selectedUser.id}`}>
                                 <Card.Header>
                                     <h1>{this.state.selectedUser.first_name} {this.state.selectedUser.last_name}</h1>
                                 </Card.Header>
@@ -98,12 +121,12 @@ export default class People extends React.Component {
                                     <Card.Text>Followers: 420</Card.Text>
                                     <Card.Text>Following: 69</Card.Text>
                                 </Card.Body>
-                                <Card.Footer>
-                                    <Button variant="outline-primary">Follow</Button>
-                                    <Button variant="outline-danger">Unfollow</Button>
-                                </Card.Footer>
-                            </Card>
-                        </a>
+                            </a>
+                            <Card.Footer>
+                                <Button variant="outline-primary" onClick={() => this.followUser()}>Follow</Button>
+                                <Button variant="outline-danger">Unfollow</Button>
+                            </Card.Footer>
+                        </Card>
                     </Col>
                 </Row>
             </Container>
