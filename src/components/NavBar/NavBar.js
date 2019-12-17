@@ -3,6 +3,9 @@ import {Link} from "react-router-dom";
 import StyledNavBar from './StyledNavBar';
 
 function NavBar(props) {
+  const [loggedIn, setLoggedIn] = useState(false);
+  
+
   /**
    * Determins whether the user is logged in based off of the session storage.
    * @returns {boolean}
@@ -23,17 +26,25 @@ function NavBar(props) {
     sessionStorage.removeItem("jwt");
   }
 
+  useEffect(() => {
+    window.addEventListener('storage', () => {
+      if (!window.sessionStorage.getItem('userId')) {
+        setLoggedIn(false);
+      }
+    })
+  }, []);
+
   return (
     <StyledNavBar className="navbar container-flex navbar-dark bg-dark fixed-top">
       <Link to="/" className="navbar-link">Home</Link>
       <h3 className="navbar-text">GA Bot</h3>
-      {isLoggedIn() &&
+      {!loggedIn &&
         <div className="authentication-grouping col-3">
           <Link to="/login" className="pr-4">Login</Link>
           <Link to="/signup">Sign Up</Link>
         </div>
       }
-      {!isLoggedIn() &&
+      {loggedIn &&
         <button onClick={() => logout()}>Logout</button>
       }
       {props.children}

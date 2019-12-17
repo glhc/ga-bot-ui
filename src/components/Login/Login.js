@@ -87,7 +87,7 @@ export default function Login(props) {
         setPassword(event.target.value);
         break;
       default:
-        console.log('input field type not recognised as usernamne or password');
+        console.log('input field type not recognised as username or password');
         console.log('input type:', event.target.type, 'type:', typeof event.target.type);
     }
   };
