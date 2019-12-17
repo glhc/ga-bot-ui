@@ -1,6 +1,6 @@
 // import React, { PureComponent as Component } from 'react';
 import React from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 export default class FriendList extends React.Component {
 
@@ -12,8 +12,8 @@ export default class FriendList extends React.Component {
     }
 
     componentDidMount() {
-        const FriendURL = 'http://localhost:3010/friends';
-        Axios.get(FriendURL)      
+        const FRIEND_URL = 'http://localhost:3010/friends';
+        axios.get(`${FRIEND_URL}.json`)      
                 .then(res => {const query = res.data;
                     this.setState({ friends: query});
         })

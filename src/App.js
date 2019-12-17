@@ -1,15 +1,17 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import "./App.css";
 
-import StyledNavBar from './components/NavBar/NavBar.js';
-import StyledLogin from './components/Login/Login.js';
-import SignUp from './components/Login/Login.js';
-import Home from './components/Home/Home.js';
+import StyledNavBar from './components/navBar/NavBar.js';
+import StyledLogin from './components/login/Login.js';
+import SignUp from './components/login/Login.js';
+import Home from './components/home/Home.js';
 
-import FriendList from './components/Friends/Friendlist.js';
-import StyledChatroom from './components/Chatroom/Chatroom.js';
-
+import People from './components/people/People.js';
+import Profile from './components/people/Profile.js';
+import Chatroom from './components/chatroom/Chatroom.js';
+import ChatroomList from './components/chatroom/ChatroomList.js';
+import StyledChatroom from './components/chatroom/Chatroom.js';
 
 function App() {
   return (
@@ -17,8 +19,14 @@ function App() {
       <StyledNavBar />
 
       <Switch>
-        <Route path='/friends'>
-          <FriendList />
+        <Route path='/chatroom'>
+          <Chatroom />
+        </Route>
+        <Route path='/profile/:id'>
+          <Profile />
+        </Route>
+        <Route path='/people'>
+          <People />
         </Route>
         <Route path='/chatroom'>
           <StyledChatroom />
