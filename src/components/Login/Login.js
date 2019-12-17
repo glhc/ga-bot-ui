@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {BACKEND_URL} from "../../config";
+import { BACKEND_URL } from "../../config";
 import StyledLogin from './StyledLogin.js';
 import axios from 'axios';
 
@@ -8,38 +8,43 @@ import axios from 'axios';
  * @todo what endpoint does the login form need to go to? Guessing '/login'
  */
 export default function Login(props) {
-  
+
   /* Create a state */
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
-  
-  
+
   /*
    * Logs into rails using knock-gem JWT auth.
    * Stores token in sessionStorage under key 'jwt'
    * Stores userId under key "userId"
    */
   function handleLogin(event) {
-    setError = false;
-    /*
-     * Gets the user id by passing the current token
+
+    /**
+     * Gets the user id from backend by passing the current token
      */
     async function getUserId() {
       const token = sessionStorage.getItem('jwt');
-      const customHeaders = {headers: {"Authorization": "Bearer " + token}}
+      const customHeaders = { headers: { "Authorization": "Bearer " + token } }
       const response = axios.get(BACKEND_URL + '/user/whatsmyid', customHeaders)
       return response;
     };
 
-    function handleError(errorMessage) {
+    /**
+     * Handles the error message
+     */
+    function handleAuthError(errorMessage) {
       setError(true);
     };
-    
+
+    /**
+     * Stores the user id in session storage
+     */
     function storeUserId(data) {
       window.sessionStorage.setItem('userId', data);
     };
-    
+
     event.preventDefault();
     const credentials = {
       "auth": {
@@ -47,29 +52,32 @@ export default function Login(props) {
         "password": password
       }
     };
-    
+
     axios.post(BACKEND_URL + '/user_token', credentials)
-      .then(response => handleAuthResponse(response))
+      .then(response => handleAuthResponse(response), error => handleAuthError(error))
       .then(() => getUserId())
       .then(response => storeUserId(response.data))
-      .catch(response => console.log('Error', response));
+      .catch(response => console.log('ahhhh', response));
   };
 
-  /*
+
+
+  /**
    * If http code is 201, store JWT token in sessionStorage.
    * If http code is 404, show error
    */
   function handleAuthResponse(response) {
-    if (response !== (201 || 201)) {
-      console.log(response);
+    console.log('response');
+    console.log(response);
+    if ((response.status == 200) || (response.status == 201)) {
       sessionStorage.setItem('jwt', response.data.jwt);
     } else {
       throw new Error('An Error occured.');
     };
-    
+
   };
 
-/* sets the state variable when an input field changes */
+  /** sets the state variable when an input field changes */
   function handleChange(event) {
     switch (event.target.type) {
       case 'email':
@@ -83,12 +91,19 @@ export default function Login(props) {
         console.log('input type:', event.target.type, 'type:', typeof event.target.type);
     }
   };
-  
+
+  useEffect(() => {
+    let loggedIn = !!sessionStorage.getItem('userId');
+    if (loggedIn) {
+      setError(false);
+    };
+  }, []);
+
   return (
     <StyledLogin>
       <form onSubmit={handleLogin}>
         <h3>Login</h3>
-        {error ? 
+        {error ?
           <p id="error-message">An error occured. Please try again.</p>
           :
           null
