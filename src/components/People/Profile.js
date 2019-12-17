@@ -38,14 +38,9 @@ class Profile extends React.Component {
             this.lonely = 
                 <Card>
                     <Row>
-                        <Col md={4}>
-                            <Image src="https://www.placecage.com/c/75/75" roundedCircle />
-                        </Col>
-                        <Col md={8}>
-                            <Card.Body>
-                            <Card.Title>No ones here :C</Card.Title>
-                            </Card.Body>
-                        </Col>
+                        <Card.Body>
+                        <Card.Title>No ones here :C</Card.Title>
+                        </Card.Body>
                     </Row>
                 </Card>
             return this.lonely
@@ -55,17 +50,12 @@ class Profile extends React.Component {
                     <a href={`/profile/${item.id}`}>
                         <Card>
                             <Row>
-                                <Col md={4}>
-                                    <Image src="https://www.placecage.com/c/75/75" roundedCircle />
-                                </Col>
-                                <Col md={8}>
-                                    <Card.Body>
-                                    <Card.Title>{item.first_name} {item.last_name}</Card.Title>
-                                    <Card.Text>
-                                        @{item.username}
-                                    </Card.Text>
-                                    </Card.Body>
-                                </Col>
+                                <Card.Body>
+                                <Card.Title>{item.first_name} {item.last_name}</Card.Title>
+                                <Card.Text>
+                                    @{item.username}
+                                </Card.Text>
+                                </Card.Body>
                             </Row>
                         </Card>
                     </a>
@@ -87,7 +77,6 @@ class Profile extends React.Component {
 
                     <Col md={6}>
                         <Card>
-                            <Card.Img variant="top" src="holder.js/100px180" />
                             <Card.Body>
                                 <Card.Title>{profile.first_name} {profile.last_name}</Card.Title>
                                 <Card.Text>@{profile.username}</Card.Text>

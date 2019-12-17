@@ -82,17 +82,12 @@ export default class Chatroom extends React.Component {
                     <a href={`/profile/${item.id}`}>
                         <Card>
                             <Row>
-                                <Col md={4}>
-                                    <Image src="https://www.placecage.com/c/75/75" roundedCircle />
-                                </Col>
-                                <Col md={8}>
-                                    <Card.Body>
-                                    <Card.Title>{item.first_name} {item.last_name}</Card.Title>
-                                    <Card.Text>
-                                        @{item.username}
-                                    </Card.Text>
-                                    </Card.Body>
-                                </Col>
+                                <Card.Body>
+                                <Card.Title>{item.first_name} {item.last_name}</Card.Title>
+                                <Card.Text>
+                                    @{item.username}
+                                </Card.Text>
+                                </Card.Body>
                             </Row>
                         </Card>
                     </a>

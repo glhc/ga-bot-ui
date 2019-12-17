@@ -60,18 +60,12 @@ export default class People extends React.Component {
                     <span onClick={() => this.updateSelectedUser(item.id)}>
                         <Card>
                             <Row>
-                                {/* <Card.Img variant="top" src="https://www.placecage.com/c/300/300" /> */}
-                                <Col md={4}>
-                                    <Image src="https://www.placecage.com/c/75/75" roundedCircle />
-                                </Col>
-                                <Col md={8}>
-                                    <Card.Body>
-                                    <Card.Title>{item.first_name} {item.last_name}</Card.Title>
-                                    <Card.Text>
-                                        @{item.username}
-                                    </Card.Text>
-                                    </Card.Body>
-                                </Col>
+                                <Card.Body>
+                                <Card.Title>{item.first_name} {item.last_name}</Card.Title>
+                                <Card.Text>
+                                    @{item.username}
+                                </Card.Text>
+                                </Card.Body>
                             </Row>
                         </Card>
                     </span>
@@ -80,6 +74,10 @@ export default class People extends React.Component {
         return(
             
             <Container>
+                <Row>
+                    <h1>asdf</h1>
+                    <h1>asdf</h1>
+                </Row>
                 <Row>
                     <input value={this.state.input} type="text" onChange={this.onChangeHandler.bind(this)}/>
                 </Row>
@@ -90,15 +88,20 @@ export default class People extends React.Component {
                     <Col md={8}>
                         <a href={`/profile/${this.state.selectedUser.id}`}>
                             <Card>
-                                <Card.Img variant="top" src="holder.js/100px180" />
+                                <Card.Header>
+                                    <h1>{this.state.selectedUser.first_name} {this.state.selectedUser.last_name}</h1>
+                                </Card.Header>
                                 <Card.Body>
-                                    <Card.Title>{this.state.selectedUser.first_name} {this.state.selectedUser.last_name}</Card.Title>
-                                    <Card.Text>@{this.state.selectedUser.username}</Card.Text>
+                                    <Card.Title>@{this.state.selectedUser.username}</Card.Title>
                                     <Card.Text>{this.state.selectedUser.age}</Card.Text>
                                     <Card.Text>{this.state.selectedUser.email}</Card.Text>
-                                    <Card.Text>Followers: {this.state.selectedUser.email}</Card.Text>
-                                    <Card.Text>Following: {this.state.selectedUser.email}</Card.Text>
+                                    <Card.Text>Followers: 420</Card.Text>
+                                    <Card.Text>Following: 69</Card.Text>
                                 </Card.Body>
+                                <Card.Footer>
+                                    <Button variant="outline-primary">Follow</Button>
+                                    <Button variant="outline-danger">Unfollow</Button>
+                                </Card.Footer>
                             </Card>
                         </a>
                     </Col>
