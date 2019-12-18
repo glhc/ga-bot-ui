@@ -15,7 +15,7 @@ export default class People extends React.Component {
             friends: [],
             input: '',
             filteredFriends: [],
-            selectedUser: {}
+            selectedUser: {},
         };
     }
 
@@ -65,11 +65,24 @@ export default class People extends React.Component {
                 "friend_id": this.state.selectedUser.id
             }
         };
-        Axios.post(BACKEND_URL + '/follow', follow_user);
+        const token = sessionStorage.getItem('jwt');
+        const options = { headers: { "Authorization": "Bearer " + token } }
+        Axios.post(BACKEND_URL + '/follow', follow_user, options);
         console.log('hi')
     }
 
-    
+    unfollowUser = () => {
+        const unfollow_user = {
+            "query": {
+                "user_id": window.localStorage.getItem("userId"),
+                "friend_id": this.state.selectedUser.id
+            }
+        };
+        const token = sessionStorage.getItem('jwt');
+        const options = { headers: { "Authorization": "Bearer " + token } }
+        Axios.post(BACKEND_URL + '/follow', unfollow_user, options);
+        console.log('hi')
+    }
 
     render() {
         const {friends} = this.state;
@@ -98,8 +111,10 @@ export default class People extends React.Component {
             
             <Container>
                 <Row>
-                    <h1>asdf</h1>
-                    <h1>asdf</h1>
+                    <h1>break</h1>
+                </Row>
+                <Row>
+                    <h1>.</h1>
                 </Row>
                 <Row>
                     <input value={this.state.input} type="text" onChange={this.onChangeHandler.bind(this)}/>
@@ -118,13 +133,11 @@ export default class People extends React.Component {
                                     <Card.Title>@{this.state.selectedUser.username}</Card.Title>
                                     <Card.Text>{this.state.selectedUser.age}</Card.Text>
                                     <Card.Text>{this.state.selectedUser.email}</Card.Text>
-                                    <Card.Text>Followers: 420</Card.Text>
-                                    <Card.Text>Following: 69</Card.Text>
                                 </Card.Body>
                             </a>
                             <Card.Footer>
-                                <Button variant="outline-primary" onClick={() => this.followUser()}>Follow</Button>
-                                <Button variant="outline-danger">Unfollow</Button>
+                                <Button variant="primary" onClick={() => this.followUser()}>Follow</Button>
+                                <Button variant="outline-primary" onClick={() => this.unfollowUser()}>Unfollow</Button>
                             </Card.Footer>
                         </Card>
                     </Col>

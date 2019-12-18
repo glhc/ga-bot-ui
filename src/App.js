@@ -9,8 +9,9 @@ import Home from './components/Home/Home.js';
 
 import People from './components/People/People.js';
 import Profile from './components/People/Profile.js';
+import Feed from './components/People/Feed.js';
+
 import Chatroom from './components/Chatroom2/Chatroom.js';
-import ChatroomList from './components/Chatroom2/Chatroom_list.js';
 import StyledChatroom from './components/Chatroom/Chatroom.js';
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
       <StyledNavBar />
 
       <Switch>
+        <Route path='/feed'>
+          <Feed />
+        </Route>  
         <Route path='/chatroom'>
           <Chatroom />
         </Route>
