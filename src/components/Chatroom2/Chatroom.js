@@ -4,8 +4,8 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
+import { BACKEND_URL } from "../../config";
 
 export default class Chatroom extends React.Component {
 
@@ -21,17 +21,19 @@ export default class Chatroom extends React.Component {
     }
 
     componentDidMount() {
-        const URL = `http://localhost:3010/chatroom/${this.state.selected_room}`;
-        Axios.get(URL)      
-                .then(res => {const query = res.data;
-                    this.setState({ 
-                        chatrooms: query.chatrooms,
-                        room_info: query.info,
-                        room_users: query.users,
-                        room_messages: query.messages
-                    });
-            console.log(this.state)
+        const token = sessionStorage.getItem('jwt');
+        const customHeaders = { headers: { "Authorization": "Bearer " + token } }
+        const response = Axios
+        .get(BACKEND_URL + `/chatroom/${this.state.selected_room}`, customHeaders)
+        .then(res => {const query = res.data;
+            this.setState({ 
+                chatrooms: query.chatrooms,
+                room_info: query.info,
+                room_users: query.users,
+                room_messages: query.messages
+            });
         })
+        return response;
     }
 
         renderRooms() {
@@ -92,12 +94,19 @@ export default class Chatroom extends React.Component {
                         </Card>
                     </a>
                 )
+            console.log(this.state)
             return this.list
         }
 
     render() {
         return(
             <Container>
+                <Row>
+                    <h1>break</h1>
+                </Row>
+                <Row>
+                    <h1>.</h1>
+                </Row>
                 <Row>
                     <Col md={3}>
                         <h1>chatroom list:</h1>

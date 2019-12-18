@@ -247,10 +247,10 @@ export default class MyProfile extends React.Component {
 
                             <Button variant="primary">Post</Button>
                             <span onClick={() => this.togglePostFilterMe()}>
-                                <Button variant="outline-primary">Me</Button>
+                                <Button variant="outline-primary">My Posts</Button>
                             </span>
                             <span onClick={() => this.togglePostFilterEveryone()}>
-                                <Button variant="outline-primary">Everyone</Button>
+                                <Button variant="outline-primary">Following Posts</Button>
                             </span>
                         </Card>
                         {this.renderPosts()}

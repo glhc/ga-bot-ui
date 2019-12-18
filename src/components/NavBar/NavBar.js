@@ -37,6 +37,12 @@ function NavBar(props) {
   return (
     <StyledNavBar className="navbar container-flex navbar-dark bg-dark fixed-top">
       <Link to="/" className="navbar-link">Home</Link>
+      <Link to="/chatroom" className="navbar-link">Chat</Link>
+      <Link to="/people" className="navbar-link">People</Link>
+      <Link to={`/profile/${window.sessionStorage.getItem('userId')}`} className="navbar-link">My Profile</Link>
+      <Link to="/feed" className="navbar-link">Feed</Link>
+      
+
       <h3 className="navbar-text">GA Bot</h3>
       {!loggedIn &&
         <div className="authentication-grouping col-3">
